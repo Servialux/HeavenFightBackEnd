@@ -15,21 +15,31 @@ class Map {
         $this->tilesType = $tilesType;
     }
 
-    public function genMapArray(){
+    /**
+     * @return array<Tiles>
+     */
+    public function genMapArray(): array{
         $tilesXMax = $this->tilesX/2;
         $tilesXMin = -($this->tilesX/2);
         $tilesYMax = $this->tilesY/2;
         $tilesYMin = -($this->tilesY/2);
+        $totalTiles = ($this->tilesX) * ($this->tilesY);
 
         $tiles = [];
-        for ($x=$tilesXMin; $x = $tilesXMax ; $x++) {
-            $tile = new Tiles(TilesType::DEFAULT, $tilesXMax+$x, 0);
-            array_push($tiles,$tile);
+        for ($i = 0; $i < $totalTiles; $i++) {
+            $x = $tilesXMin + $i;
+            $y = $tilesYMin + $i;
+            if($x > $tilesXMax|| $y > $tilesYMax){
+                break;
+            }
+            $tile = new Tiles($i, TilesType::DEFAULT, 0, 0);
+            $tile->setPosX($x);
+            $tile->setPosY($y);
+
+            $tiles[] = $tile;
         }
 
-        foreach ($tiles as $tile) {
-            $tile->setPosY($y)
-        }
+        return $tiles;
     }
 
 }

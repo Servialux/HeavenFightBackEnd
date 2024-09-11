@@ -5,15 +5,24 @@ namespace App\Core\Domain\Models;
 use App\Core\Domain\Enums\TilesType;
 
 class Tiles {
+    private int $id;
     private TilesType $type;
     private int $posX;
     private int $posY;
 
-    public function __construct(TilesType $type, Int $posX, Int $posY)
+    public function __construct(Int $id, TilesType $type, Int $posX, Int $posY)
     {
+        $this->id = $id;
         $this->type = $type;
         $this->posX = $posX;
         $this->posY = $posY;
+    }
+    public function setId(int $id): void{
+        $this->id = $id;
+    }
+
+    public function getId(): int{
+        return $this->id;
     }
 
     public function setType(TilesType $type): void{
