@@ -27,14 +27,12 @@ class Map {
 
         $tiles = [];
         for ($i = 0; $i < $totalTiles; $i++) {
-            $x = $tilesXMin + $i;
-            $y = $tilesYMin + $i;
-            if($x > $tilesXMax|| $y > $tilesYMax){
-                break;
-            }
+            $x = $tilesXMin + ($i % $this->tilesX); // Reste de la division pour le cycle X
+            $y = $tilesYMin + floor($i / $this->tilesX); // Division entière pour incrémenter Y après chaque ligne
+
             $tile = new Tiles($i, TilesType::DEFAULT, 0, 0);
             $tile->setPosX($x);
-            $tile->setPosY($y);
+            $tile->setPosY((int)$y);
 
             $tiles[] = $tile;
         }
