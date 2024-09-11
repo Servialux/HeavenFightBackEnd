@@ -19,12 +19,10 @@ class Map {
      * @return array<Tiles>
      */
     public function genMapArray(): array{
-        $tilesXMax = $this->tilesX/2;
         $tilesXMin = -($this->tilesX/2);
-        $tilesYMax = $this->tilesY/2;
         $tilesYMin = -($this->tilesY/2);
         $totalTiles = ($this->tilesX) * ($this->tilesY);
-
+        $tempType = $this->tilesType;
         $tiles = [];
         for ($i = 0; $i < $totalTiles; $i++) {
             $x = $tilesXMin + ($i % $this->tilesX); // Reste de la division pour le cycle X
