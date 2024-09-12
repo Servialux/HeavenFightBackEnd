@@ -2,6 +2,8 @@
 
 namespace App\Core\Domain\Models;
 
+use App\Core\Domain\Enums\TilesItem;
+use App\Core\Domain\Enums\TilesState;
 use App\Core\Domain\Enums\TilesType;
 
 class Map {
@@ -28,7 +30,7 @@ class Map {
             $x = $tilesXMin + ($i % $this->tilesX); // Reste de la division pour le cycle X
             $y = $tilesYMin + floor($i / $this->tilesX); // Division entière pour incrémenter Y après chaque ligne
 
-            $tile = new Tiles($i, TilesType::DEFAULT, 0, 0);
+            $tile = new Tiles($i, TilesType::DEFAULT, 0, 0, TilesState::DEFAULT, TilesItem::NULL);
             $tile->setPosX($x);
             $tile->setPosY((int)$y);
 

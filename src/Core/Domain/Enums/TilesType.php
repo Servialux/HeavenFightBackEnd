@@ -4,7 +4,7 @@ namespace App\Core\Domain\Enums;
 
 enum TilesType {
     case DEFAULT;
-    case ANGEL;
-    case EVIL;
-    case NULL;
+    case GRASS;
+    case SAND;
+    case WATER;
 }

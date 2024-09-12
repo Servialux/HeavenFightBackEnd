@@ -17,6 +17,7 @@ class MapGenerationController extends AbstractController
     public function __invoke(): JsonResponse
     {
         $map = new Map(self::MAP_TILES_X, self::MAP_TILES_Y, TilesType::DEFAULT);
+        dump($map->genMapArray());
         return $this->json($map->genMapArray(), 200);
     }
 }

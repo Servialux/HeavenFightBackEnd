@@ -2,21 +2,21 @@
 
 namespace App\Core\Domain\Models;
 
+use App\Core\Domain\Enums\TilesItem;
+use App\Core\Domain\Enums\TilesState;
 use App\Core\Domain\Enums\TilesType;
 
 class Tiles {
-    private int $id;
-    private TilesType $type;
-    private int $posX;
-    private int $posY;
 
-    public function __construct(Int $id, TilesType $type, Int $posX, Int $posY)
-    {
-        $this->id = $id;
-        $this->type = $type;
-        $this->posX = $posX;
-        $this->posY = $posY;
-    }
+    public function __construct(
+       private Int $id,
+       private TilesType $type,
+       private Int $posX,
+       private Int $posY,
+       private TilesState $state = TilesState::DEFAULT,
+       private ?TilesItem $item = TilesItem::NULL
+    ){}
+
     public function setId(int $id): void{
         $this->id = $id;
     }
@@ -56,5 +56,21 @@ class Tiles {
     */
     public function getPosXY(): array {
         return  [$this->posX, $this->posY];
+    }
+
+    public function setState(TilesState $newState): void {
+        $this->state = $newState;
+    }
+
+    public function getState(): ?TilesState {
+        return $this->state;
+    }
+
+    public function addItem(TilesItem $item): void {
+        $this->item ??= $item;
+    }
+
+    public function getItem(): ?TilesItem {
+        return $this->item;
     }
 }
