@@ -17,13 +17,13 @@ class Map {
      * @return array<Tiles>
      */
     public function genMapArray(): array{
-        $tilesXMin = -($this->tilesX/2);
-        $tilesYMin = -($this->tilesY/2);
+        $tilesXMin = -(int)($this->tilesX/2);
+        $tilesYMin = -(int)($this->tilesY/2);
         $totalTiles = ($this->tilesX) * ($this->tilesY);
         $tiles = [];
         for ($i = 0; $i < $totalTiles; $i++) {
             $x = $tilesXMin + ($i % $this->tilesX); // Reste de la division pour le cycle X
-            $y = $tilesYMin + floor($i / $this->tilesX); // Division entière pour incrémenter Y après chaque ligne
+            $y = $tilesYMin + (int)($i / $this->tilesX); // Division entière pour incrémenter Y après chaque ligne
 
             $tile = new Tiles($i, $this->tilesType, 0, 0, TilesState::DEFAULT, TilesItem::NULL);
             $tile->setPosX($x);
