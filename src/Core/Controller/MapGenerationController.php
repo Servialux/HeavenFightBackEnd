@@ -2,22 +2,29 @@
 
 namespace App\Core\Controller;
 
-use App\Core\Domain\Enums\TilesType;
-use App\Core\Domain\Models\Map;
+use App\Core\Action\GenerateMap;
+use App\Core\Domain\Models\LaunchModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
+#[Route('/launch', name: 'app_launch_game', methods:['GET', 'POST'])]
 class MapGenerationController extends AbstractController
 {
-    private const MAP_TILES_X = 10;
-    private const MAP_TILES_Y = 10;
 
-    #[Route('/map/generation', name: 'app_map_generation', methods:['GET'])]
-    public function __invoke(): JsonResponse
+    public function __construct(
+        private GenerateMap $generateMap,
+        private SerializerInterface $serializerInterface
+    ){}
+
+    public function __invoke(Request $request): JsonResponse
     {
-        $map = new Map(self::MAP_TILES_X, self::MAP_TILES_Y, TilesType::DEFAULT);
-        dump($map->genMapArray());
-        return $this->json($map->genMapArray(), 200);
+        $post = $this->serializerInterface->deserialize($request->getContent(), LaunchModel::class ,"json");
+
+        /** @var LaunchModel $post */
+        $map = ($this->generateMap)($post->getX(), $post->getY());
+        return $this->json($map, 200);
     }
 }
